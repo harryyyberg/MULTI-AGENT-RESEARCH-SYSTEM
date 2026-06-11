@@ -14,7 +14,13 @@ tavily = TavilyClient(api_key=st.secrets["TAVILY_API_KEY"])
 
 @tool
 def web_search(query : str)->str:
-    """Search the web for recent and reliable information on a topic.Returns Title,URLs and snippets."""
+    """Search the web using Tavily.
+
+    Args:
+        query: Search query string.
+
+    Returns:
+        A formatted string containing titles, URLs, and snippets."""
     results = tavily.search(query = query,max_results = 5)
 
     out = []
@@ -28,15 +34,20 @@ def web_search(query : str)->str:
 
 @tool
 def scrape_url(url:str)->str:
-    """Scrape and return clean text content from a given URL for deeper reading."""
+    """Scrape a webpage.
+
+    Args:
+        url: Full URL including https://
+
+    Returns:
+        Clean text extracted from the webpage."""
     try:
         resp = requests.get(url,timeout=8,headers={"User-Agent" : "Mozilla/5.0"})
         soup = BeautifulSoup(resp.text, "html.parser")
         [tag.decompose() for tag in soup(["script", "style","nav","footer","noscript"])]
         return soup.get_text(separator=" ", strip=True)[:3000]
     except Exception as e:
-        print(f"Error: {e}")
-        return None
+        return f"Error scraping URL: {str(e)}"
 
 # print(scrape_url.invoke("https://byjus.com/free-ias-prep/el-nino"))
 # print(web_search.invoke("What is the effect of El-Nino on india?"))
