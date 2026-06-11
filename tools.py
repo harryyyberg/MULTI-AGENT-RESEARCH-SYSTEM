@@ -37,5 +37,5 @@ def scrape_url(url:str)->str:
         print(f"Error: {e}")
         return None
 
-print(scrape_url.invoke("https://byjus.com/free-ias-prep/el-nino"))
+# print(scrape_url.invoke("https://byjus.com/free-ias-prep/el-nino"))
 # print(web_search.invoke("What is the effect of El-Nino on india?"))

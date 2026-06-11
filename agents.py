@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # model setup
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash",temperature = 0)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash",google_api_key=os.getenv("GOOGLE_API_KEY"))
 
 # 1st agent
 def build_search_agent():
