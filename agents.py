@@ -1,6 +1,7 @@
 from langchain.agents import create_agent
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search,scrape_url
@@ -13,9 +14,16 @@ load_dotenv()
 # model setup
 # llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash",google_api_key=st.secrets["GOOGLE_API_KEY"])
 
-llm = ChatGroq(
-    model="llama-3.1-8b-instant",
-    api_key=st.secrets["GROQ_API_KEY"]
+# llm = ChatGroq(
+#     model="openai/gpt-oss-120b",
+#     api_key=st.secrets["GROQ_API_KEY"]
+# )
+
+llm = ChatOpenAI(
+    model="openai/gpt-oss-20b:free",
+    api_key=st.secrets["OPENROUTER_API_KEY"],
+    base_url="https://openrouter.ai/api/v1",
+    temperature=0
 )
 
 # 1st agent
